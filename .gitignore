@@ -1,0 +1,13 @@
+# Nota: el dataset (data/credit_card_fraud_detection_2026.csv) SÍ se versiona, porque el despliegue en
+# Render construye la imagen desde este repositorio y la sección EDA del dashboard lo necesita.
+# Entorno virtual y cachés de Python
+.venv/
+__pycache__/
+*.pyc
+# Registros de entrenamiento y del servidor local
+*.log
+# Archivos temporales que genera CatBoost al entrenar
+catboost_info/
+# Configuración local del asistente y del editor
+.claude/
+.vscode/

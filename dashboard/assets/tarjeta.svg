@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Tarjeta de crédito protegida por un escudo de detección de fraude">
+  <!-- Ilustración del contexto: tarjeta de crédito, red de transacciones y escudo de detección -->
+  <defs>
+    <!-- Degradado del fondo: azul noche a violeta -->
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1b3a"/>
+      <stop offset="1" stop-color="#2a1240"/>
+    </linearGradient>
+    <!-- Degradado de la tarjeta principal -->
+    <linearGradient id="tarjeta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3987e5"/>
+      <stop offset="1" stop-color="#6250d6"/>
+    </linearGradient>
+    <!-- Degradado de la tarjeta sospechosa (fraude) -->
+    <linearGradient id="tarjeta2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e66767"/>
+      <stop offset="1" stop-color="#d95926"/>
+    </linearGradient>
+    <!-- Degradado del escudo -->
+    <linearGradient id="escudo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2ee6b0"/>
+      <stop offset="1" stop-color="#199e70"/>
+    </linearGradient>
+    <!-- Resplandor suave detrás del escudo -->
+    <radialGradient id="brillo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2ee6b0" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#2ee6b0" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Sombra de las tarjetas -->
+    <filter id="sombra" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Fondo -->
+  <rect width="640" height="480" fill="url(#fondo)"/>
+
+  <!-- Red de transacciones: nodos y conexiones -->
+  <g stroke="#3987e5" stroke-opacity="0.35" stroke-width="1.5">
+    <line x1="60" y1="70" x2="170" y2="40"/><line x1="170" y1="40" x2="300" y2="80"/>
+    <line x1="300" y1="80" x2="440" y2="40"/><line x1="440" y1="40" x2="590" y2="90"/>
+    <line x1="60" y1="70" x2="90" y2="190"/><line x1="590" y1="90" x2="560" y2="220"/>
+    <line x1="90" y1="410" x2="230" y2="440"/><line x1="230" y1="440" x2="400" y2="420"/>
+    <line x1="400" y1="420" x2="580" y2="440"/><line x1="580" y1="440" x2="560" y2="320"/>
+  </g>
+  <g fill="#3987e5">
+    <circle cx="60" cy="70" r="5"/><circle cx="170" cy="40" r="4"/><circle cx="300" cy="80" r="5"/>
+    <circle cx="440" cy="40" r="4"/><circle cx="590" cy="90" r="5"/><circle cx="90" cy="190" r="4"/>
+    <circle cx="560" cy="220" r="4"/><circle cx="90" cy="410" r="5"/><circle cx="230" cy="440" r="4"/>
+    <circle cx="400" cy="420" r="5"/><circle cx="560" cy="320" r="4"/>
+  </g>
+  <!-- Nodo sospechoso resaltado en rojo -->
+  <circle cx="580" cy="440" r="7" fill="#e66767"/>
+  <circle cx="580" cy="440" r="14" fill="none" stroke="#e66767" stroke-opacity="0.6" stroke-width="2"/>
+
+  <!-- Tarjeta sospechosa (detrás, inclinada) -->
+  <g transform="translate(250 120) rotate(-10)" filter="url(#sombra)">
+    <rect width="300" height="186" rx="18" fill="url(#tarjeta2)"/>
+    <rect x="0" y="34" width="300" height="34" fill="#000" fill-opacity="0.35"/>
+    <text x="24" y="150" font-family="Segoe UI, sans-serif" font-size="18" fill="#fff" fill-opacity="0.85">•••• •••• •••• 9137</text>
+  </g>
+
+  <!-- Tarjeta legítima (delante) -->
+  <g transform="translate(90 190) rotate(4)" filter="url(#sombra)">
+    <rect width="320" height="200" rx="20" fill="url(#tarjeta)"/>
+    <!-- Chip -->
+    <rect x="28" y="56" width="52" height="40" rx="8" fill="#f2c14e"/>
+    <path d="M28 76h52M54 56v40M40 56v40M68 56v40" stroke="#b8860b" stroke-width="2"/>
+    <!-- Símbolo sin contacto -->
+    <path d="M100 64a18 18 0 0 1 0 24M110 58a28 28 0 0 1 0 36M120 52a38 38 0 0 1 0 48" stroke="#fff" stroke-opacity="0.8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Número y titular -->
+    <text x="28" y="140" font-family="Consolas, monospace" font-size="21" fill="#fff" letter-spacing="2">4532 •••• •••• 2026</text>
+    <text x="28" y="176" font-family="Segoe UI, sans-serif" font-size="13" fill="#fff" fill-opacity="0.8">TITULAR · 12/29</text>
+    <!-- Logotipo genérico de dos círculos -->
+    <circle cx="258" cy="166" r="18" fill="#fff" fill-opacity="0.55"/>
+    <circle cx="282" cy="166" r="18" fill="#fff" fill-opacity="0.35"/>
+  </g>
+
+  <!-- Escudo de detección con resplandor -->
+  <circle cx="470" cy="300" r="110" fill="url(#brillo)"/>
+  <g transform="translate(420 225)" filter="url(#sombra)">
+    <path d="M50 0 L100 18 V62 C100 100 78 128 50 142 C22 128 0 100 0 62 V18 Z" fill="url(#escudo)"/>
+    <path d="M28 70 L45 88 L76 52" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Línea de probabilidad de fraude -->
+  <g font-family="Segoe UI, sans-serif">
+    <rect x="40" y="420" width="190" height="34" rx="17" fill="#000" fill-opacity="0.35"/>
+    <circle cx="60" cy="437" r="6" fill="#e66767"/>
+    <text x="74" y="442" font-size="14" fill="#fff">P(fraude) = 0,87</text>
+  </g>
+</svg>

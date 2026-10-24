@@ -1,0 +1,13 @@
+# Service: expone el dashboard fuera del clúster
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-dashboard-service         # Nombre del Service
+spec:
+  type: LoadBalancer                    # En Docker Desktop, un LoadBalancer se publica en localhost
+  selector:
+    app: fraud-dashboard                # Envía el tráfico a los pods del Deployment
+  ports:
+    - protocol: TCP
+      port: 8051                        # Puerto publicado: http://localhost:8051 (8050 queda para la ejecución local)
+      targetPort: 8050                  # Puerto del contenedor

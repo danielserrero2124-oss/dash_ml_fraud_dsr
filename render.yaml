@@ -1,0 +1,11 @@
+# Configuración de despliegue en Render (Blueprint): publica el dashboard como servicio web.
+# En Render: New → Blueprint → elegir el repositorio dash_ml_fraud_dsr → Apply.
+services:
+  - type: web                          # Servicio web accesible por una URL pública
+    name: fraud-detection-dashboard    # Nombre del servicio (define la URL: <nombre>.onrender.com)
+    runtime: docker                    # Se construye con el mismo Dockerfile de Docker y Kubernetes (Python 3.14 y versiones fijadas)
+    dockerfilePath: ./docker/Dockerfile   # Ruta del Dockerfile dentro del repositorio
+    dockerContext: .                   # Contexto de construcción: la raíz del repositorio (código, artefactos y datos)
+    plan: free                         # Plan gratuito (512 MB de RAM; el dashboard usa ≈ 350 MB)
+    healthCheckPath: /                 # Ruta que Render consulta para saber si el servicio está listo
+    autoDeploy: true                   # Vuelve a desplegar automáticamente con cada push a la rama principal

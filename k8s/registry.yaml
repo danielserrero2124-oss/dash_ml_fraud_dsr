@@ -1,0 +1,36 @@
+# Registro de imágenes local dentro del Kubernetes de Docker Desktop.
+# Docker Desktop (modo kind) no comparte las imágenes locales con el clúster: se publican aquí
+# con "docker push localhost:5000/..." y el nodo las descarga desde su propio localhost:5000.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registro-local                  # Nombre del Deployment del registro
+spec:
+  replicas: 1                           # Una sola instancia
+  selector:
+    matchLabels:
+      app: registro-local               # Pods gestionados
+  template:
+    metadata:
+      labels:
+        app: registro-local             # Etiqueta del pod
+    spec:
+      hostNetwork: true                 # Escucha en la red del nodo: el nodo lo ve en localhost:5000
+      containers:
+        - name: registry                # Contenedor del registro
+          image: registry:2             # Registro oficial de Docker (distribution)
+          ports:
+            - containerPort: 5000       # Puerto del registro
+---
+# Service que publica el registro en localhost:5000 de Windows (LoadBalancer de Docker Desktop)
+apiVersion: v1
+kind: Service
+metadata:
+  name: registro-local
+spec:
+  type: LoadBalancer                    # Docker Desktop lo expone en localhost
+  selector:
+    app: registro-local                 # Envía el tráfico al pod del registro
+  ports:
+    - port: 5000                        # Puerto publicado en el equipo
+      targetPort: 5000                  # Puerto del registro

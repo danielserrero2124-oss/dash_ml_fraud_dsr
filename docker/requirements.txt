@@ -1,0 +1,9 @@
+# Dependencias del contenedor del dashboard (mismas versiones con las que se entrenaron los artefactos)
+pandas==3.1.0              # Lectura y manipulación de datos
+numpy==2.5.4               # Cálculo numérico (también lo usa el GA²M)
+scipy==1.18.1              # Distribución normal para la prueba de DeLong
+scikit-learn==1.9.1        # Debe coincidir con la versión de entrenamiento para que joblib.load funcione
+joblib==1.6.0              # Carga de los artefactos entrenados
+dash==4.4.1                # Framework del dashboard
+plotly==7.1.0              # Gráficos interactivos
+gunicorn==23.0.0           # Servidor WSGI de producción dentro del contenedor (Linux)

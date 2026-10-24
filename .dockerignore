@@ -1,0 +1,7 @@
+# Archivos que no deben entrar al contexto de construcción de Docker
+.venv/
+.git/
+.claude/
+**/__pycache__/
+*.log
+catboost_info/

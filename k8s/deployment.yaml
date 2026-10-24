@@ -1,0 +1,42 @@
+# Deployment: mantiene en ejecución el contenedor del dashboard en el Kubernetes de Docker Desktop
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-dashboard                 # Nombre del Deployment
+  labels:
+    app: fraud-dashboard                # Etiqueta para agrupar los recursos del proyecto
+spec:
+  replicas: 1                           # Una réplica basta para uso local
+  selector:
+    matchLabels:
+      app: fraud-dashboard              # Gestiona los pods con esta etiqueta
+  template:
+    metadata:
+      labels:
+        app: fraud-dashboard            # Etiqueta de cada pod (la usa el Service)
+    spec:
+      containers:
+        - name: dashboard               # Nombre del contenedor
+          image: localhost:5000/fraud-dashboard:3.0   # Imagen publicada en el registro local del clúster (k8s/registry.yaml)
+          imagePullPolicy: IfNotPresent  # La descarga del registro local solo si el nodo no la tiene
+          ports:
+            - containerPort: 8050       # Puerto de gunicorn dentro del contenedor
+          resources:
+            requests:                   # Recursos mínimos reservados
+              cpu: "250m"
+              memory: "512Mi"
+            limits:                     # Límite máximo (dataset + modelos caben con holgura)
+              cpu: "2"
+              memory: "2Gi"
+          readinessProbe:               # El pod recibe tráfico solo cuando el dashboard responde
+            httpGet:
+              path: /
+              port: 8050
+            initialDelaySeconds: 10     # Tiempo para cargar el dataset y los modelos
+            periodSeconds: 10
+          livenessProbe:                # Reinicia el contenedor si deja de responder
+            httpGet:
+              path: /
+              port: 8050
+            initialDelaySeconds: 40
+            periodSeconds: 20

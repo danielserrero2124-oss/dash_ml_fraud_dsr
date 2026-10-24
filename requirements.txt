@@ -1,0 +1,12 @@
+# Dependencias del proyecto (versiones con las que se entrenaron los artefactos)
+pandas==3.1.0              # Lectura y manipulación de datos
+numpy==2.5.4               # Cálculo numérico (también usado por la RVM implementada desde cero)
+scipy==1.18.1              # Distribución normal para la prueba de DeLong
+scikit-learn==1.9.1        # Pipeline, ColumnTransformer, GridSearchCV y modelos recomendados
+joblib==1.6.0              # Guardado de los artefactos entrenados
+dash==4.4.1                # Framework del dashboard interactivo
+plotly==7.1.0              # Gráficos interactivos
+# Solo para dashboard/experimentos.py (comparación con modelos del listado; el dashboard no los necesita)
+catboost==1.2.10           # Hierarchical CatBoost
+lightgbm==4.7.0            # LGBR + optimizador
+xgboost==3.4.1             # XGBoost y RFXG

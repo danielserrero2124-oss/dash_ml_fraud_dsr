@@ -1,0 +1,208 @@
+/* ==========================================================================
+   Tema visual del dashboard de fraude (Dash carga automáticamente assets/)
+   ========================================================================== */
+
+/* Variables de color y medida reutilizadas en toda la hoja de estilos */
+:root {
+  --fondo: #0b0f19;            /* Fondo general de la página (azul noche) */
+  --superficie: #141a27;       /* Fondo de tarjetas y gráficos */
+  --superficie-2: #1c2435;     /* Fondo de controles (desplegables, entradas) */
+  --borde: #2a3448;            /* Líneas divisorias y bordes */
+  --texto: #f0f3fa;            /* Texto principal */
+  --texto-2: #b4bdd0;          /* Texto secundario */
+  --texto-3: #7f8aa3;          /* Texto atenuado (etiquetas pequeñas) */
+  --acento: #2ee6b0;           /* Color de marca (verde seguridad), no se usa para datos */
+  --azul: #3987e5;             /* Serie "legítima" y controles */
+  --rojo: #e66767;             /* Serie "fraude" */
+  --radio: 16px;               /* Redondeo de las tarjetas */
+
+  /* Variables de tema de los componentes de Dash 4 (desplegables, deslizadores, opciones) */
+  --Dash-Fill-Inverse-Strong: #1c2435;           /* Fondo de los controles */
+  --Dash-Fill-Interactive-Strong: #3987e5;       /* Color interactivo (selección, deslizador) */
+  --Dash-Fill-Interactive-Weak: rgba(57, 135, 229, 0.12);   /* Fondo de la opción bajo el cursor */
+  --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.05);     /* Fondo al pasar el cursor */
+  --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.09);    /* Fondo al hacer clic */
+  --Dash-Fill-Disabled: rgba(255, 255, 255, 0.06);          /* Fondo deshabilitado */
+  --Dash-Stroke-Strong: #3a4660;                 /* Borde fuerte */
+  --Dash-Stroke-Weak: #2a3448;                   /* Borde débil */
+  --Dash-Text-Strong: #f0f3fa;                   /* Texto fuerte */
+  --Dash-Text-Primary: #e3e8f3;                  /* Texto normal */
+  --Dash-Text-Weak: #b4bdd0;                     /* Texto atenuado */
+  --Dash-Text-Disabled: #6b7690;                 /* Texto deshabilitado */
+  --Dash-Shading-Strong: rgba(0, 0, 0, 0.55);    /* Sombra fuerte de menús flotantes */
+  --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);      /* Sombra débil */
+  --Dash-Tooltip-Background-Color: #1c2435;      /* Fondo del globo del deslizador */
+  --Dash-Tooltip-Border-Color: #3a4660;          /* Borde del globo */
+}
+
+/* Página completa: fondo oscuro con dos resplandores suaves */
+body {
+  margin: 0;                                             /* Sin margen exterior */
+  background:
+    radial-gradient(900px 520px at 10% -10%, rgba(57, 135, 229, 0.18), transparent 60%),   /* Resplandor azul arriba a la izquierda */
+    radial-gradient(900px 520px at 95% 0%, rgba(46, 230, 176, 0.10), transparent 60%),     /* Resplandor verde arriba a la derecha */
+    var(--fondo);                                        /* Color base */
+  background-attachment: fixed;                          /* El fondo no se desplaza con el contenido */
+  color: var(--texto);                                   /* Color de texto por defecto */
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;   /* Tipografía del sistema */
+}
+
+/* Contenedor central con ancho máximo */
+.contenedor { max-width: 1400px; margin: 0 auto; padding: 22px 26px 60px; }   /* Centrado y con espacio interior */
+
+/* Encabezado: marca a la izquierda y etiquetas a la derecha */
+.encabezado { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.marca { display: flex; align-items: center; gap: 14px; }                    /* Icono y títulos alineados */
+.marca-icono {
+  width: 46px; height: 46px; border-radius: 14px;                            /* Tamaño y redondeo del icono */
+  background: linear-gradient(135deg, #2ee6b0, #3987e5);                     /* Degradado verde-azul */
+  display: grid; place-items: center; font-size: 24px;                       /* Centra el símbolo */
+  box-shadow: 0 8px 24px rgba(46, 230, 176, 0.30);                           /* Sombra de color */
+}
+.marca h1 { font-size: 21px; margin: 0; font-weight: 700; letter-spacing: 0.2px; }   /* Título principal */
+.marca p { margin: 2px 0 0; font-size: 13px; color: var(--texto-2); }                 /* Subtítulo */
+
+/* Pestañas de navegación (Contexto, EDA, ML Models) */
+.pestanas { border: none !important; margin-bottom: 20px; }                  /* Sin borde del contenedor */
+.pestanas .tab {
+  background: transparent !important; border: none !important;               /* Sin fondo ni bordes por defecto */
+  border-bottom: 2px solid var(--borde) !important;                          /* Línea inferior tenue */
+  color: var(--texto-2) !important; padding: 12px 22px !important;           /* Color y espacio */
+  font-weight: 600; font-size: 15px; transition: color 0.2s, border-color 0.2s;   /* Texto y transición */
+}
+.pestanas .tab:hover { color: var(--texto) !important; }                     /* Resalta al pasar el cursor */
+.pestanas .tab--selected {
+  color: var(--texto) !important;                                            /* Texto principal en la pestaña activa */
+  border-bottom: 2px solid var(--acento) !important;                         /* Línea de acento */
+  background: linear-gradient(180deg, transparent, rgba(46, 230, 176, 0.10)) !important;   /* Brillo sutil */
+}
+
+/* Tarjetas */
+.tarjeta {
+  background: var(--superficie); border: 1px solid var(--borde);             /* Fondo y borde */
+  border-radius: var(--radio); padding: 18px 20px;                           /* Redondeo y espacio interior */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);                               /* Sombra suave */
+  height: 100%; box-sizing: border-box; min-width: 0;                        /* Llena la celda sin desbordar */
+}
+.tarjeta h3 { margin: 0 0 4px; font-size: 16px; font-weight: 650; }          /* Título de la tarjeta */
+.tarjeta .nota { margin: 0 0 12px; font-size: 13px; color: var(--texto-2); line-height: 1.5; }   /* Texto explicativo */
+.tarjeta p { color: var(--texto-2); line-height: 1.65; font-size: 14.5px; }  /* Párrafos */
+.tarjeta li { color: var(--texto-2); line-height: 1.7; font-size: 14.5px; }  /* Elementos de lista */
+.tarjeta b, .tarjeta strong { color: var(--texto); }                         /* Negritas en color principal */
+.destacada { border-color: rgba(46, 230, 176, 0.45); box-shadow: 0 0 0 1px rgba(46, 230, 176, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3); }   /* Tarjeta del modelo original */
+
+/* Rejillas de distribución */
+.rejilla { display: grid; gap: 18px; margin-bottom: 18px; }                  /* Rejilla base */
+.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }                /* Dos columnas */
+.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }                /* Tres columnas */
+.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }                /* Cuatro columnas */
+.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }                /* Cinco columnas */
+.cols-heroe { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }     /* Texto algo más ancho que la imagen */
+.cols-control { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }      /* Columna angosta de controles y ancha de gráfico */
+@media (max-width: 1000px) {                                                 /* Pantallas angostas */
+  .cols-2, .cols-3, .cols-heroe, .cols-control { grid-template-columns: 1fr; }   /* Todo a una columna */
+  .cols-4, .cols-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }         /* Indicadores en dos columnas */
+}
+@media (max-width: 520px) { .contenedor { padding: 16px 16px 40px; } .cols-4, .cols-5 { grid-template-columns: 1fr; } }   /* Teléfonos */
+
+/* Indicadores numéricos (KPI) */
+.kpi .etiqueta { font-size: 12.5px; color: var(--texto-3); text-transform: uppercase; letter-spacing: 0.7px; }   /* Nombre */
+.kpi .valor { font-size: 29px; font-weight: 700; margin-top: 6px; line-height: 1.1; font-variant-numeric: tabular-nums; }   /* Cifra */
+.kpi .detalle { font-size: 12.5px; color: var(--texto-2); margin-top: 6px; }                                     /* Aclaración */
+
+/* Portada del contexto */
+.heroe h2 { font-size: 30px; line-height: 1.2; margin: 0 0 12px; }           /* Titular */
+.heroe .resaltado { color: var(--acento); }                                  /* Palabras destacadas */
+.imagen-heroe { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radio); display: block; }   /* Imagen a toda la tarjeta */
+.sin-relleno { padding: 0; overflow: hidden; }                               /* Tarjeta sin espacio interior */
+
+/* Etiquetas de los controles */
+.control-etiqueta { display: block; font-size: 12.5px; color: var(--texto-3); text-transform: uppercase; letter-spacing: 0.6px; margin: 12px 0 6px; }
+
+/* Botones de opción con forma de píldora (dcc.RadioItems, dcc.Checklist) */
+.opciones label {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0 8px 8px 0;  /* Marcador y texto alineados */
+  padding: 7px 13px; border: 1px solid var(--borde); border-radius: 999px;   /* Forma de píldora */
+  background: var(--superficie-2); color: var(--texto-2); font-size: 13.5px; cursor: pointer;   /* Colores y cursor */
+}
+.opciones input { accent-color: var(--azul); }                               /* Color del marcador nativo */
+
+/* Campos numéricos del simulador */
+.entrada { width: 100%; box-sizing: border-box; background: var(--superficie-2); border: 1px solid var(--borde); border-radius: 10px; color: var(--texto); padding: 9px 12px; font-size: 14px; }
+.entrada:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 2px rgba(57, 135, 229, 0.25); }   /* Resalta al enfocar */
+
+/* Tablas */
+.tabla-envoltura { overflow-x: auto; }                                       /* Desplazamiento horizontal en pantallas angostas */
+.tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; }       /* Tabla a todo el ancho */
+.tabla th { text-align: left; color: var(--texto-3); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--borde); text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.6px; }   /* Encabezados */
+.tabla td { padding: 9px 10px; border-bottom: 1px solid var(--borde); color: var(--texto-2); }   /* Celdas */
+.tabla tr.activa td { color: var(--texto); background: rgba(46, 230, 176, 0.08); }               /* Fila resaltada */
+.tabla td.num, .tabla th.num { text-align: right; font-variant-numeric: tabular-nums; }          /* Números a la derecha */
+.tabla code { color: #9ec5f4; background: rgba(57, 135, 229, 0.10); padding: 1px 6px; border-radius: 6px; }   /* Nombres de variables */
+
+/* Etiquetas, pasos numerados e insignias */
+.chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--borde); color: var(--texto-2); margin: 0 6px 6px 0; }   /* Etiqueta pequeña */
+.paso { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }                 /* Fila de un paso */
+.paso-numero { flex: 0 0 28px; height: 28px; border-radius: 50%; background: rgba(46, 230, 176, 0.14); color: var(--acento); display: grid; place-items: center; font-weight: 700; font-size: 13px; }   /* Círculo numerado */
+.paso-texto { color: var(--texto-2); font-size: 14px; line-height: 1.55; }                        /* Texto del paso */
+.insignia { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }   /* Insignia de estado */
+.insignia.si { background: rgba(46, 230, 176, 0.15); color: #6ff0c8; }       /* Diferencia significativa */
+.insignia.no { background: rgba(255, 255, 255, 0.07); color: var(--texto-2); }   /* No significativa */
+.cita { font-size: 13px; color: var(--texto-2); border-left: 3px solid var(--acento); padding: 4px 0 4px 12px; margin: 10px 0; line-height: 1.55; }   /* Referencia bibliográfica */
+.cita a { color: #9ec5f4; }                                                  /* Enlace de la referencia */
+
+/* Resultado del simulador */
+.resultado { text-align: center; padding-top: 4px; }                         /* Bloque centrado */
+.resultado .veredicto { font-size: 18px; font-weight: 700; margin-top: -6px; }   /* Texto del veredicto */
+.pie { text-align: center; color: var(--texto-3); font-size: 12.5px; margin-top: 26px; }   /* Pie de página */
+
+/* Etiqueta del criterio de la rúbrica al inicio de cada sección */
+.rubrica { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; padding: 10px 14px;   /* Fila con separación */
+           border: 1px dashed rgba(46, 230, 176, 0.45); border-radius: 12px; background: rgba(46, 230, 176, 0.05); }   /* Borde punteado de acento */
+.rubrica-num { font-weight: 700; color: var(--acento); font-size: 13px; text-transform: uppercase; letter-spacing: 0.6px; }   /* «Criterio N» */
+.rubrica-nombre { color: var(--texto); font-weight: 600; font-size: 14px; }                                                   /* Nombre del criterio */
+.rubrica-peso { margin-left: auto; color: var(--texto-2); font-size: 12.5px; font-variant-numeric: tabular-nums; }            /* Ponderación y tiempo */
+
+/* Sub-pestañas de ML Models */
+.subpestanas { border: none !important; margin-bottom: 18px; }                                   /* Sin borde del contenedor */
+.subpestanas .subtab { background: var(--superficie) !important; border: 1px solid var(--borde) !important;   /* Píldoras */
+                       border-radius: 999px !important; margin-right: 8px; padding: 8px 16px !important;
+                       color: var(--texto-2) !important; font-weight: 600; font-size: 13.5px; }
+.subpestanas .subtab--selected { background: rgba(213, 81, 129, 0.16) !important; border-color: #d55181 !important; color: var(--texto) !important; }   /* Activa */
+
+/* Bloques de fórmulas (MathJax) */
+.formula { color: var(--texto-2); font-size: 14.5px; line-height: 1.7; overflow-x: auto; }       /* Desplazamiento horizontal si la ecuación es ancha */
+.formula p { margin: 8px 0; }                                                                     /* Párrafos compactos */
+.formula strong { color: var(--texto); }                                                          /* Títulos en negrita */
+mjx-container { color: var(--texto); }                                                            /* Ecuaciones en color principal */
+
+/* Preguntas desplegables de la sustentación */
+.pregunta { border: 1px solid var(--borde); border-radius: 12px; margin-bottom: 10px; background: var(--superficie-2); }   /* Caja de cada pregunta */
+.pregunta summary { cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--texto); font-size: 14.5px; }      /* Pregunta clicable */
+.pregunta[open] summary { border-bottom: 1px solid var(--borde); }                                                        /* Separador cuando está abierta */
+.pregunta .respuesta { padding: 4px 16px 6px; }                                                                           /* Respuesta */
+
+/* Caja con desplazamiento vertical (tablas largas) y bloque de código */
+.caja-scroll { max-height: 420px; overflow: auto; }                                               /* Tabla descriptiva de 26 filas */
+.codigo { background: var(--superficie-2); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 14px;   /* Comandos */
+          color: #9ec5f4; font-size: 13px; overflow-x: auto; white-space: pre; }
+
+/* Varias tarjetas apiladas dentro de una misma celda de la rejilla */
+.columna { display: flex; flex-direction: column; gap: 18px; min-width: 0; }   /* Columna con separación uniforme */
+.columna > .tarjeta { height: auto; }                                          /* Cada tarjeta ocupa solo su contenido */
+
+/* Código fuente mostrado en «Diseño experimental» */
+.caja-codigo { max-height: 520px; overflow: auto; border: 1px solid var(--borde); border-radius: 12px; background: #0d1117; padding: 4px 14px; }   /* Caja con desplazamiento */
+.caja-codigo pre { margin: 0; background: transparent !important; }                                 /* Sin fondo propio del bloque */
+.caja-codigo code { font-family: "Cascadia Code", Consolas, monospace; font-size: 12.5px; line-height: 1.55; background: transparent !important; }   /* Tipografía monoespaciada */
+.caja-codigo .nota { margin: 8px 0 0; }                                                              /* Ruta del archivo */
+/* Colores de sintaxis legibles sobre fondo oscuro (estilo GitHub oscuro) */
+.caja-codigo code, .caja-codigo .hljs { color: #e6edf3 !important; }                       /* Texto base */
+.caja-codigo .hljs-keyword, .caja-codigo .hljs-selector-tag { color: #ff7b72 !important; } /* def, for, return, if… */
+.caja-codigo .hljs-string { color: #a5d6ff !important; }                                   /* Cadenas */
+.caja-codigo .hljs-comment { color: #8b949e !important; font-style: italic; }              /* Comentarios */
+.caja-codigo .hljs-number, .caja-codigo .hljs-literal { color: #79c0ff !important; }       /* Números, True, False, None */
+.caja-codigo .hljs-title, .caja-codigo .hljs-title.function_ { color: #d2a8ff !important; }   /* Nombres de funciones */
+.caja-codigo .hljs-built_in { color: #ffa657 !important; }                                 /* len, range, dict… */
+.caja-codigo .hljs-params, .caja-codigo .hljs-variable { color: #e6edf3 !important; }      /* Parámetros */
+.caja-codigo .hljs-meta, .caja-codigo .hljs-doctag { color: #7ee787 !important; }          /* Decoradores y docstrings */
